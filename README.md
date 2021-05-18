@@ -9,3 +9,7 @@ Identifying effects of certain gene mutations in Soybeans to maximimize oil prod
 - R5
 - R5/6
 - R6
+
+All growth stages are mentioned below for reference:
+<img src="images/stages_of_growth.png" width="700">
+
