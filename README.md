@@ -33,4 +33,4 @@ The table below shows a representation of the plants w/o the replicates.
 | **B** | WT @ R5/6 | WR1 @ R5/6 | WR1 + DGAT @ R5/6 | WR1 + KASII @ R5/6 |
 | **C** | WT @ R6 | WR1 @ R6 | WR1 + DGAT @ R6 | WR1 + KASII @ R6 |
 
-Each of these plants have 3 replicas such that A1 has 3 subplants those being- A1-1, A1-2, & A1-3. Therefore, in total, there are 36 different plants that the data was accquired from.
+Each of these plants have 3 replicas such that A1 has 3 subplants those being- A1_1, A1_2, & A1_3. Therefore, in total, there are 36 different plants that the data was accquired from.
