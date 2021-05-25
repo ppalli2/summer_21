@@ -25,6 +25,7 @@ rn_f <- rownames(countdata1)
 
 dds <- DESeqDataSetFromMatrix(countData = countdata1, colData = table_cond,
                               design = ~ wr1+time+dgat+kas+wr1:time+dgat:time+kas:time)
+
 ddsTC <- DESeq(dds, fitType='local')
 resTC <- results(ddsTC)
 resTC <- resTC[order(resTC$padj),]
