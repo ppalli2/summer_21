@@ -4,8 +4,10 @@ setwd("/Users/pranavpalli/Desktop/summer_21")
 #libraries
 
 #files
-col_names <- read.csv(file = "./data/sample_info.csv", header = TRUE, row.names = 1) #column_names for actual data
-data <- read.csv(file = './data/data_soybean.csv', header = TRUE, row.names = 1) #actual data
+col_names <- read.csv(file = "./data/sample_info.csv") #column_names for actual data
+data <- read.csv(file = './data/.data_soybean.csv.icloud') #actual data
+
+
 
 #data
 print(col_names[,])
