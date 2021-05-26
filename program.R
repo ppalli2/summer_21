@@ -5,7 +5,7 @@ setwd("/Users/pranavpalli/Desktop/summer_21")
 
 #files
 col_names <- read.csv(file = "./data/sample_info.csv") #column_names for actual data
-data <- read.csv(file = './data/.data_soybean.csv.icloud') #actual data
+data <- read.csv(file = "./data/data_soybean.csv") #actual data
 
 
 
