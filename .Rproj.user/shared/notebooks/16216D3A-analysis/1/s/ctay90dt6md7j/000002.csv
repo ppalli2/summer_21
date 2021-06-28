@@ -1,0 +1,4 @@
+"0",""
+"0","rownames(data) = data$id"
+"0","data = data[, -1]"
+"0","head(data)"

@@ -1,0 +1,6 @@
+"0","library(ggplot2)"
+"0","rld = rlog(dds)"
+"2","rlog() may take a few minutes with 30 or more samples,
+vst() is a much faster transformation
+"
+"0","plotPCA(rld, intgroup = c(""gene_symbol"", ""timings""))"

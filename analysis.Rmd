@@ -1,0 +1,166 @@
+---
+title: "transcriptome"
+author: "Pranav Palli"
+date: "6/24/2021"
+output: html_document
+---
+
+```{r setup, echo=FALSE}
+knitr::opts_chunk$set(echo = F)
+true = TRUE
+false = FALSE
+```
+
+## R Markdown
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+## 
+
+*project code-- imports*
+```{r imports}
+# importing libraries
+library(DESeq2)
+library(dplyr)
+
+#importing data
+countData = read.csv("./data/data_soybean.csv")
+```
+
+*code-- removes first col*
+```{r first_col}
+#removes first col
+rownames(countData) = countData$gene
+countData = countData[, -1] #--- uncomment when re-running entire script
+par(mar = c(8, 4, 4, 1) + 0.1)
+barplot(colSums(countData), las = 3)
+```
+
+```{r log_values}
+logOfData = log2(1 + countData)
+View(logOfData)
+```
+
+```{r plot_replicas}
+plot(logOfData[, 1], logOfData[, 3])
+```
+
+```{r column_meta_data}
+gene_symbol = c("WT", "WT", "WT", "WR1", "WR1", "WR1", "WR1_DGAT", "WR1_DGAT", "WR1_DGAT", "WR1_KASII", "WR1_KASII", "WR1_KASII", "WT", "WT", "WT", "WR1", "WR1", "WR1", "WR1_DGAT", "WR1_DGAT", "WR1_DGAT", "WR1_KASII", "WR1_KASII", "WR1_KASII", "WT", "WT", "WT", "WR1", "WR1", "WR1", "WR1_DGAT", "WR1_DGAT", "WR1_DGAT", "WR1_KASII", "WR1_KASII", "WR1_KASII")
+
+#treatment = c("control", "control", "control", "gene_alteration", "gene_alteration", "gene_alteration", "gene_alteration", "gene_alteration", "gene_alteration", "gene_alteration", "gene_alteration", "gene_alteration", "control", "control", "control", "gene_alteration", "gene_alteration", "gene_alteration", "gene_alteration", "gene_alteration", "gene_alteration", "gene_alteration", "gene_alteration", "gene_alteration", "control", "control", "control", "gene_alteration", "gene_alteration", "gene_alteration", "gene_alteration", "gene_alteration", "gene_alteration", "gene_alteration", "gene_alteration", "gene_alteration")
+
+timings = c("R5", "R5", "R5", "R5", "R5", "R5", "R5", "R5", "R5", "R5", "R5", "R5", "R5/6", "R5/6", "R5/6", "R5/6", "R5/6", "R5/6", "R5/6", "R5/6", "R5/6", "R5/6", "R5/6", "R5/6", "R6", "R6", "R6", "R6", "R6", "R6", "R6", "R6", "R6", "R6", "R6", "R6")
+
+colData = as.data.frame(cbind(colnames(countData), gene_symbol, timings))
+
+print(colData)
+```
+
+
+```{r}
+dds = DESeqDataSetFromMatrix(countData = countData,
+                             colData = colData,
+                             design = ~gene_symbol+timings+gene_symbol*timings)
+
+dds = DESeq(dds)
+nrow(dds)
+```
+
+
+```{r}
+#y <- as.matrix(read.table(dds, header=TRUE, row.names = "Gene"))
+#dd <- as.dist((1 – cor(y))/2)   #Pearson correlation  distance
+#hc <- hclust(dd, method = "centroid")
+#plot(hc)
+```
+
+
+```{r}
+sizeFactors(dds)
+```
+
+
+```{r}
+library(ggplot2)
+rld = rlog(dds)
+plotPCA(rld, intgroup = c("gene_symbol", "timings"))
+```
+
+
+```{r}
+res = results(dds)
+head(res)
+summary(res)
+```
+
+
+```{r}
+res = results(dds, lfcThreshold = 0.01)
+```
+
+
+```{r}
+DESeq2::plotMA(res, ylim = c(-5, 5))
+```
+
+
+```{r}
+library(dplyr)
+res1 = as.data.frame(res)
+
+res1 = mutate(res1, sig = ifelse(res1$padj<0.1, "FDR < 0.1", "Not Sig"))
+
+res1[which(abs(res1$log2FoldChange) < 0.1), "sig"] = "Not Sig"
+```
+
+
+```{r}
+library(ggplot2)
+
+ggplot(res1, aes(log2FoldChange, -log10(padj))) + geom_point(aes(col = sig)) + scale_color_manual(values = c("red", "black"))
+```
+
+
+```{r}
+res = res[order(abs(res$log2FoldChange), decreasing = TRUE), ]
+top_gene = rownames(res)[1]
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+

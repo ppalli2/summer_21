@@ -1,0 +1,2 @@
+"0","res = res[order(abs(res$log2FoldChange), decreasing = TRUE), ]"
+"0","top_gene = rownames(res)[1]"

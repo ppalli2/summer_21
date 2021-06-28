@@ -1,0 +1,6 @@
+"0","library(dplyr)"
+"0","res1 = as.data.frame(res)"
+"0",""
+"0","res1 = mutate(res1, sig = ifelse(res1$padj<0.1, ""FDR < 0.1"", ""Not Sig""))"
+"0",""
+"0","res1[which(abs(res1$log2FoldChange) < 0.1), ""sig""] = ""Not Sig"""
