@@ -3,4 +3,4 @@
 "0","library(dplyr)"
 "0",""
 "0","#importing data"
-"0","countData = read.csv(""./data/data_soybean.csv"")"
+"0","countData = read.csv(""./data/data_organization/DESEQ_files/WT_WR1.csv"", header = TRUE, row.names = 1)"
