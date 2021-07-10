@@ -1,0 +1,4 @@
+"0","data = data[data$sig == ""FDR < 0.05"", ]"
+"0","data = data[complete.cases(data), ]"
+"0",""
+"0","write.csv(data, ""/Users/pranavpalli/Desktop/summer_21/data/deseq_results/analysis_results/hm.csv"")"

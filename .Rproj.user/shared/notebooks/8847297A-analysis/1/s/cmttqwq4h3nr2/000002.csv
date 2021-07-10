@@ -1,0 +1,4 @@
+"0","res = results(dds)"
+"0","res_design = results(dds_design)"
+"0","res_contrast = results(dds, contrast = c(""genotype"", ""wild_type"", ""wrinkle""))"
+"0","res_contrast_opp = results(dds, contrast = c(""genotype"", ""wrinkle"", ""wild_type""))"

@@ -1,7 +1,0 @@
-"0","genotype = c(""wild_type"", ""wild_type"", ""wild_type"", ""wrinkle"", ""wrinkle"", ""wrinkle"", ""wild_type"", ""wild_type"", ""wild_type"", ""wrinkle"", ""wrinkle"", ""wrinkle"", ""wild_type"", ""wild_type"", ""wild_type"", ""wrinkle"", ""wrinkle"", ""wrinkle"")"
-"0",""
-"0","time = c(""R5"", ""R5"", ""R5"", ""R5"", ""R5"", ""R5"", ""R5/6"", ""R5/6"", ""R5/6"", ""R5/6"", ""R5/6"", ""R5/6"", ""R6"", ""R6"", ""R6"", ""R6"", ""R6"", ""R6"")"
-"0",""
-"0","colData = as.data.frame(cbind(colnames(countData), genotype, time))"
-"0",""
-"0","print(colData)"

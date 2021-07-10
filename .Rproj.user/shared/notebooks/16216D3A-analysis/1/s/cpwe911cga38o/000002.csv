@@ -1,7 +1,0 @@
-"0","# importing libraries"
-"0","library(DESeq2)"
-"0","library(dplyr)"
-"0",""
-"0","#importing data"
-"0","data = read.csv(""./data/sample_info.csv"")"
-"0","head(data)"

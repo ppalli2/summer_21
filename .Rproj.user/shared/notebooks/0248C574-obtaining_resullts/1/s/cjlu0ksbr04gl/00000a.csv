@@ -1,0 +1,4 @@
+"0","data = read.csv(""/Users/pranavpalli/Desktop/summer_21/data/deseq_results/analysis_results/wt_wr1.csv"", header = TRUE, row.names = 1)"
+"0","data = as.data.frame(data)"
+"0",""
+"0","View(data)"

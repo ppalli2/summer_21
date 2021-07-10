@@ -1,0 +1,26 @@
+{
+    "id": "41094C34",
+    "path": "~/Desktop/summer_21/scripts/diff_gene_expression.R",
+    "project_path": "scripts/diff_gene_expression.R",
+    "type": "r_source",
+    "hash": "3917344457",
+    "contents": "",
+    "dirty": false,
+    "created": 1625687614208.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "39,41",
+        "scrollLine": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1625780733,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1625780733510,
+    "read_only": false,
+    "read_only_alternatives": []
+}

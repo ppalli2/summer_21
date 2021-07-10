@@ -1,0 +1,6 @@
+"0","# importing libraries"
+"0","library(DESeq2)"
+"0","library(dplyr)"
+"0",""
+"0","#importing data"
+"0","countData = read.csv(""/Users/pranavpalli/Desktop/summer_21/data/data_organization/DESEQ_files/wr1.csv"", header = TRUE, row.names = 1)"

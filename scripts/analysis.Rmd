@@ -25,7 +25,7 @@ library(DESeq2)
 library(dplyr)
 
 #importing data
-countData = read.csv("./data/data_organization/DESEQ_files/WT_WR1.csv", header = TRUE, row.names = 1)
+countData = read.csv("/Users/pranavpalli/Desktop/summer_21/data/data_organization/DESEQ_files/wr1.csv", header = TRUE, row.names = 1)
 ```
 
 *code-- removes first col*
@@ -58,10 +58,14 @@ print(colData)
 
 dds = DESeqDataSetFromMatrix(countData = countData,
                              colData = colData,
-                             design = ~genotype)
+                             design = ~ time + genotype)
+
+dds_design = DESeqDataSetFromMatrix(countData = countData,
+                             colData = colData,
+                             design = ~ genotype)
 
 dds = DESeq(dds)
-nrow(dds)
+dds_design = DESeq(dds_design)
 ```
 
 
@@ -87,13 +91,18 @@ plotPCA(rld, intgroup = c("genotype"))
 
 ```{r}
 res = results(dds)
-head(res)
-summary(res)
+res_design = results(dds_design)
+res_contrast = results(dds, contrast = c("genotype", "wild_type", "wrinkle"))
+res_contrast_opp = results(dds, contrast = c("genotype", "wrinkle", "wild_type"))
 ```
 
 
 ```{r}
-res = results(dds, lfcThreshold = 0.01)
+res = as.data.frame(res)
+res_design = as.data.frame(res_design)
+res_contrast = as.data.frame(res_contrast)
+res_contrast_opp = as.data.frame(res_contrast_opp)
+#res = results(dds, lfcThreshold = 0.01)
 ```
 
 

@@ -1,0 +1,5 @@
+"0","res = as.data.frame(res)"
+"0","res_design = as.data.frame(res_design)"
+"0","res_contrast = as.data.frame(res_contrast)"
+"0","res_contrast_opp = as.data.frame(res_contrast_opp)"
+"0","#res = results(dds, lfcThreshold = 0.01)"

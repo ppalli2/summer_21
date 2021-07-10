@@ -1,0 +1,176 @@
+---
+title: "transcriptome"
+author: "Pranav Palli"
+date: "6/24/2021"
+output: html_document
+---
+
+```{r setup, echo=FALSE}
+knitr::opts_chunk$set(echo = F)
+true = TRUE
+false = FALSE
+```
+
+## R Markdown
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+## 
+
+*project code-- imports*
+```{r imports}
+# importing libraries
+library(DESeq2)
+library(dplyr)
+
+#importing data
+countData = read.csv("/Users/pranavpalli/Desktop/summer_21/data/data_organization/DESEQ_files/wr1.csv", header = TRUE, row.names = 1)
+```
+
+*code-- removes first col*
+```{r col_counts}
+#plot col_counts
+par(mar = c(5, 4, 4, 3) + 0.1)
+barplot(colSums(countData), las = 3)
+```
+
+```{r log_values}
+logOfData = log2(1 + countData)
+```
+
+```{r plot_replicas}
+plot(logOfData[, 1], logOfData[, 3])
+```
+
+```{r column_meta_data}
+genotype = c("wild_type", "wild_type", "wild_type", "wrinkle", "wrinkle", "wrinkle", "wild_type", "wild_type", "wild_type", "wrinkle", "wrinkle", "wrinkle", "wild_type", "wild_type", "wild_type", "wrinkle", "wrinkle", "wrinkle")
+
+time = c("R5", "R5", "R5", "R5", "R5", "R5", "R5/6", "R5/6", "R5/6", "R5/6", "R5/6", "R5/6", "R6", "R6", "R6", "R6", "R6", "R6")
+
+colData = as.data.frame(cbind(colnames(countData), genotype, time))
+
+print(colData)
+```
+
+
+```{r}
+
+dds = DESeqDataSetFromMatrix(countData = countData,
+                             colData = colData,
+                             design = ~ time + genotype)
+
+dds_design = DESeqDataSetFromMatrix(countData = countData,
+                             colData = colData,
+                             design = ~ genotype)
+
+dds = DESeq(dds)
+dds_design = DESeq(dds_design)
+```
+
+
+```{r}
+#y <- as.matrix(read.table(dds, header=TRUE, row.names = "Gene"))
+#dd <- as.dist((1 – cor(y))/2)   #Pearson correlation  distance
+#hc <- hclust(dd, method = "centroid")
+#plot(hc)
+```
+
+
+```{r}
+sizeFactors(dds)
+```
+
+
+```{r}
+library(ggplot2)
+rld = rlog(dds)
+plotPCA(rld, intgroup = c("genotype"))
+```
+
+
+```{r}
+res = results(dds)
+res_design = results(dds_design)
+res_contrast = results(dds, contrast = c("genotype", "wild_type", "wrinkle"))
+res_contrast_opp = results(dds, contrast = c("genotype", "wrinkle", "wild_type"))
+```
+
+
+```{r}
+res = as.data.frame(res)
+res_design = as.data.frame(res_design)
+res_contrast = as.data.frame(res_contrast)
+res_contrast_opp = as.data.frame(res_contrast_opp)
+#res = results(dds, lfcThreshold = 0.01)
+```
+
+
+```{r}
+DESeq2::plotMA(res, ylim = c(-5, 5))
+```
+
+
+```{r}
+library(dplyr)
+res1 = as.data.frame(res)
+
+res1 = mutate(res1, sig = ifelse(res1$padj < 0.1, "FDR < 0.1", "Not Sig"))
+
+res1[which(abs(res1$log2FoldChange) < 0.1), "sig"] = "Not Sig"
+```
+
+
+```{r}
+library(ggplot2)
+
+ggplot(res1, aes(log2FoldChange, -log10(padj))) + geom_point(aes(col = sig)) + scale_color_manual(values = c("blue", "black"))
+```
+
+
+```{r}
+res = res[order(abs(res$log2FoldChange), decreasing = TRUE), ]
+top_gene = rownames(res)[1]
+plotCounts(dds, gene = top_gene, intgroup = c("genotype"))
+```
+
+
+```{r}
+library(AnnotationDbi)
+library("org.Mm.eg.db")
+```
+
+
+```{r}
+res$refseq = row.names(res)
+```
+
+
+```{r}
+write.csv(as.data.frame(res), file = "wt_wr1_results.csv", )
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
