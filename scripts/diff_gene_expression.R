@@ -46,17 +46,17 @@ diff_gene_expression <- function(plant_type) {
   res = as.data.frame(res) #rewriting res as dataframe
   res_lfc = as.data.frame(res_lfc) 
   
-  res = mutate(res, sig = ifelse(res$padj < 0.05, "FDR < 0.05", "Not Sig")) # if adjusted p-value < 0.05,
-  res_lfc = mutate(res_lfc, sig = ifelse(res_lfc$padj < 0.05, "FDR < 0.05", "Not Sig")) # count as valuable
+  res = mutate(res, sig = ifelse(res$padj < 0.005, "FDR < 0.005", "Not Sig")) # if adjusted p-value < 0.05,
+  res_lfc = mutate(res_lfc, sig = ifelse(res_lfc$padj < 0.005, "FDR < 0.005", "Not Sig")) # count as valuable
   
-  res[which(abs(res$log2FoldChange) < 0.1), "sig"] = "Not Sig" # if log2FoldChange is less than 
-  res_lfc[which(abs(res_lfc$log2FoldChange) < 0.1), "sig"] = "Not Sig" # 0.1, count as not-sig
+  res[which(abs(res$log2FoldChange) < 0.7), "sig"] = "Not Sig" # if log2FoldChange is less than 
+  res_lfc[which(abs(res_lfc$log2FoldChange) < 0.7), "sig"] = "Not Sig" # 0.1, count as not-sig
   
   res = res[order(abs(res$log2FoldChange), decreasing = TRUE), ] # arranges log2FoldChange from
   res_lfc = res_lfc[order(abs(res_lfc$log2FoldChange), decreasing = TRUE), ] # greatest to lowest
   
-  # sorting output
-  res_sig = res[res$sig == "FDR < 0.05", ] # only gets significant data
+  # eliminating useless output
+  res_sig = res[res$sig == "FDR < 0.005", ] # only gets significant data
   res_sig = res_sig[complete.cases(res_sig), ] # eliminates NA rows from res
   
   # combining final names
