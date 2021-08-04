@@ -35,25 +35,19 @@ diff_gene_expression <- function(plant_type) {
   colData = as.data.frame(cbind(colnames(countData), genotype, time)) # writes colData as a dataframe
   
   # DESEQ2 object and results
-  dds = DESeqDataSetFromMatrix(countData = countData, # countData = data
-                               colData = colData, # colData = meta data
-                               design = ~time + genotype) # design = design being tested
+  dds = DESeqDataSetFromMatrix(countData = countData,
+                               colData = colData,
+                               design = ~time + genotype)
+  
   dds = DESeq(dds) # processes all the data including normalization
   res = results(dds) # obtains results
   res_lfc = results(dds, lfcThreshold = 0.01) # same as line 27 but excludes log2foldchange of 0
   
   # mutating dataframe
   res = as.data.frame(res) #rewriting res as dataframe
-  res_lfc = as.data.frame(res_lfc) 
-  
-  res = mutate(res, sig = ifelse(res$padj < 0.005, "FDR < 0.005", "Not Sig")) # if adjusted p-value < 0.05,
-  res_lfc = mutate(res_lfc, sig = ifelse(res_lfc$padj < 0.005, "FDR < 0.005", "Not Sig")) # count as valuable
-  
-  res[which(abs(res$log2FoldChange) < 0.7), "sig"] = "Not Sig" # if log2FoldChange is less than 
-  res_lfc[which(abs(res_lfc$log2FoldChange) < 0.7), "sig"] = "Not Sig" # 0.1, count as not-sig
-  
-  res = res[order(abs(res$log2FoldChange), decreasing = TRUE), ] # arranges log2FoldChange from
-  res_lfc = res_lfc[order(abs(res_lfc$log2FoldChange), decreasing = TRUE), ] # greatest to lowest
+  res = mutate(res, sig = ifelse(res$padj < 0.005, "FDR < 0.005", "Not Sig")) # if adjusted p-value < 0.05, count as valuable
+  res[which(abs(res$log2FoldChange) < 0.7), "sig"] = "Not Sig" # if log2FoldChange is less than 0.1, count as not-sig
+  res = res[order(abs(res$log2FoldChange), decreasing = TRUE), ] # arranges log2FoldChange from greatest to lowest
   
   # eliminating useless output
   res_sig = res[res$sig == "FDR < 0.005", ] # only gets significant data
@@ -63,12 +57,10 @@ diff_gene_expression <- function(plant_type) {
   folder_name = "./data/deseq_results/analysis_results/"
   isolated_folder = paste(plant_type, "_isolated/", sep = "")
   file_name_reg = paste(isolated_folder, paste(plant_type, ".csv", sep = ""), sep = "")
-  file_name_lfc = paste(isolated_folder, paste(plant_type, "_lfc.csv", sep = ""), sep = "")
   file_name_sig = paste(isolated_folder, paste(plant_type, "_sig.csv", sep = ""), sep = "")
   
   # writing output
   write.csv(res, paste(folder_name, file_name_reg, sep = ""))
-  write.csv(res_lfc, paste(folder_name, file_name_lfc, sep = ""))
   write.csv(res_sig, paste(folder_name, file_name_sig, sep = ""))
 }
 

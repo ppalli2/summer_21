@@ -1,0 +1,5 @@
+"0","#countData = read.csv(""./data/raw_counts/data_soybean.csv"", header = TRUE, row.names = 1)"
+"0","#logOfData = log2(1 + countData)"
+"0","par(mar = c(4, 4, 4, 0) + 0.1)"
+"0","par(bg = ""gray"")"
+"0","plot(logOfData[, 1], logOfData[, 3], main = ""log of samples"", xlab = ""A1_1"", ylab = ""A1_3"", col = ""red"")"

@@ -25,7 +25,6 @@ library(DESeq2)
 library(dplyr)
 
 #importing data
-countData = read.csv("/Users/pranavpalli/Desktop/summer_21/data/data_organization/DESEQ_files/wr1.csv", header = TRUE, row.names = 1)
 ```
 
 *code-- removes first col*
@@ -36,11 +35,15 @@ barplot(colSums(countData), las = 3)
 ```
 
 ```{r log_values}
-logOfData = log2(1 + countData)
+
 ```
 
 ```{r plot_replicas}
-plot(logOfData[, 1], logOfData[, 3])
+#countData = read.csv("./data/raw_counts/data_soybean.csv", header = TRUE, row.names = 1)
+#logOfData = log2(1 + countData)
+par(mar = c(4, 4, 4, 0) + 0.1)
+par(bg = "gray")
+plot(logOfData[, 1], logOfData[, 3], main = "log of samples", xlab = "A1_1", ylab = "A1_3", col = "red")
 ```
 
 ```{r column_meta_data}
